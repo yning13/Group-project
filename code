@@ -1,1 +1,49 @@
-print("hello")
+
+
+# 初始設定
+snake = [2, 3, 4]
+food = 7
+length = 3
+
+while True:
+    # 清空地圖並更新
+    game_map = [" "] * 10
+    for pos in snake:
+        game_map[pos] = "O"
+    game_map[food] = "*"
+
+    print("".join(game_map))
+    move = input("輸入方向（r右 / l左 / q離開）: ")
+
+    if move == "q":
+        print("遊戲結束！")
+        break
+
+    # 取得蛇的頭部位置
+    head = snake[-1]
+
+    # 根據輸入更新位置
+    if move == "r":
+        head += 1
+    elif move == "l":
+        head -= 1
+    else:
+        print("輸入錯誤，只能輸入 r 或 l")
+        continue
+
+    # 檢查是否撞牆
+    if head < 0 or head > 9:
+        print("你撞牆了！遊戲結束！")
+        break
+
+    # 新增頭部
+    snake.append(head)
+
+    # 檢查是否吃到食物
+    if head == food:
+        print("吃到食物！")
+        # 新食物位置（簡化版，固定放左邊）
+        food = 1
+    else:
+        # 沒吃到就移除尾巴，維持長度
+        snake.pop(0)
